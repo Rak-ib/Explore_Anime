@@ -1,0 +1,23 @@
+<div >
+  <app-search></app-search>
+    <form (ngSubmit)="fetchAnimeData()">
+      <label for="type">Anime Type:</label>
+      <input type="text" id="type" [(ngModel)]="formData.title" name="type" />
+  
+  
+      <button type="submit" [disabled]="loading">Fetch Data</button>
+    </form>
+  
+    <div *ngIf="loading">Loading...</div>
+    <div *ngIf="error">{{ error }}</div>
+  
+    <div *ngIf="animeData.length > 0">
+      <h3>Fetched Anime:</h3>
+      <ul>
+        <li *ngFor="let anime of animeData">
+          <p>{{ anime.title }}</p>
+        </li>
+      </ul>
+    </div>
+  </div>
+  
