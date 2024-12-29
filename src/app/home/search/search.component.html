@@ -11,7 +11,7 @@
     
 </div>
 <div class="flex flex-row mt-10 text-black font-semibold text-xl gap-5 justify-center items-center">
-    <p>search for Anime:<strong>lkdfjl</strong></p>
-    <p>search for Anime Type:<strong>lkdfjl</strong></p>
+    <p *ngIf="animeName" >search for Anime:<strong>{{animeName}} </strong></p>
+    <p *ngIf="animeType">search for Anime Type:<strong>{{animeType}} </strong></p>
 </div>
   
