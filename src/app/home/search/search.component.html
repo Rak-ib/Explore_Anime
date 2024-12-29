@@ -1,17 +1,19 @@
 <div class="bg-black h-[30vh] pt-10 flex flex-col justify-center items-center">
     <h2 class="font-extrabold text-3xl text-white mb-8">Explore Anime</h2>
-    <div class="container mx-auto text-white flex flex-row gap-5 justify-center items-center ">
-        
-        <input type="text" name="" placeholder="Anime Name" (input)="setAnime($event)" class="border-2 text-black border-gray-800 rounded-lg w-[25vw] h-14 p-2" id="">
-        <input type="text" name="" placeholder="Anime Type" [(ngModel)]="animeType" class="border-2 text-black border-gray-800 rounded-lg w-[25vw] h-14 p-2" id="">
-
+    <div class="container mx-auto text-white flex flex-row gap-5 justify-center items-center">
+        <input type="text" placeholder="Anime Name" [(ngModel)]="animeName"
+            class="border-2 text-black border-gray-800 rounded-lg w-[25vw] h-14 p-2" />
+        <select [(ngModel)]="animeType" class="border-2 text-black border-gray-800 rounded-lg w-[25vw] h-14 p-2">
+            <option value="" disabled selected>Choose Anime Type</option>
+            <option value="">None</option>
+            <option *ngFor="let type of animeTypes" [value]="type">{{ type }}</option>
+        </select>
+        <button class="bg-blue-500 text-white px-4 py-2 rounded-lg" (click)="emitSearchData()">
+            Search
+        </button>
     </div>
-
-    
-    
 </div>
-<div class="flex flex-row mt-10 text-black font-semibold text-xl gap-5 justify-center items-center">
-    <p *ngIf="animeName" >search for Anime:<strong>{{animeName}} </strong></p>
-    <p *ngIf="animeType">search for Anime Type:<strong>{{animeType}} </strong></p>
+<div class="flex flex-row gap-5 justify-center items-center font-semibold text-2xl mt-3">
+    <p *ngIf="animeName">Searched anime:<strong>{{animeName}} </strong></p>
+    <p *ngIf="animeType">Searched type:<strong> {{animeType}} </strong></p>
 </div>
-  

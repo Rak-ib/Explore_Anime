@@ -7,22 +7,26 @@ import axios from 'axios';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
-  // Declare variables to store form data and fetched results
   formData = {
     page: '1',
-    size: '10',
+    size: '100',
     title: '',
+    type: ''
   };
 
   animeData: any = [];
   loading: boolean = false;
   error: string | null = null;
 
+  private isCooldown: boolean = false;
+
   constructor() {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.fetchAnimeData()
+  }
 
-  // Method to fetch anime data based on the form input
+
   async fetchAnimeData(): Promise<void> {
     this.loading = true;
     this.error = null;
@@ -34,6 +38,7 @@ export class HomeComponent implements OnInit {
         page: this.formData.page,
         size: this.formData.size,
         search: this.formData.title,
+        genres: this.formData.type
       },
       headers: {
         'x-rapidapi-key': '8f232cd195mshd5ca5617b364c78p199eebjsnd82e01e7039a',
@@ -43,12 +48,21 @@ export class HomeComponent implements OnInit {
 
     try {
       const response = await axios.request(options);
+      console.log('API Response:', response.data);
       this.animeData = response.data.data;
-      console.log(this.animeData)
       this.loading = false;
     } catch (error) {
+      console.error('Error fetching data:', error);
       this.error = 'Error fetching data';
       this.loading = false;
     }
+  }
+
+  
+  handleSearchData(event: { animeName: string; animeType: string }): void {
+    console.log('Received search data in HomeComponent:', event);
+    this.formData.title = event.animeName;
+    this.formData.type = event.animeType;
+    this.fetchAnimeData();
   }
 }
