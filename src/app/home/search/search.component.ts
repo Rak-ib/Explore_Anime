@@ -25,12 +25,12 @@ export class SearchComponent {
 
   @Output() searchData = new EventEmitter<{ animeName: string; animeType: string }>();
 
-  constructor() {
-    // Emit search data after a delay
-    this.searchSubject.pipe(debounceTime(500)).subscribe((data) => {
-      this.searchData.emit(data);
-    });
-  }
+  // constructor() {
+  //   // Emit search data after a delay
+  //   this.searchSubject.pipe(debounceTime(500)).subscribe((data) => {
+  //     this.searchData.emit(data);
+  //   });
+  // }
 
   setAnime(event: any) {
     this.animeName = event.target.value;
@@ -43,6 +43,7 @@ export class SearchComponent {
   }
 
   emitSearchData() {
-    this.searchSubject.next({ animeName: this.animeName, animeType: this.animeType });
+    // this.searchSubject.next({ animeName: this.animeName, animeType: this.animeType });
+    this.searchData.emit({animeName:this.animeName,animeType:this.animeType})
   }
 }
