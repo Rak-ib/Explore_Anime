@@ -26,7 +26,7 @@ export class HomeComponent implements OnInit {
     this.error = null;
 
     try {
-      const response = await appClient.get('/', {
+      const response = await appClient.get('', {
         params: {
           anime_name: this.formData.anime_name,
           category: this.formData.category,
