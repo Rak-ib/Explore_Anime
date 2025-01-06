@@ -3,14 +3,14 @@
   <app-search (searchData)="handleSearchData($event)" class="mb-6"></app-search>
 
   <!-- Loading State -->
-  <div *ngIf="loading" class="text-center text-blue-500 font-semibold text-lg">
+  <!-- <div *ngIf="loading" class="text-center text-blue-500 font-semibold text-lg">
     Loading...
   </div>
 
-  <!-- Error State -->
-  <div *ngIf="error" class="text-center text-red-500 font-semibold text-lg">
+  Error State -->
+  <!-- <div *ngIf="error" class="text-center text-red-500 font-semibold text-lg">
     {{ error }}
-  </div>
+  </div> -->
 
   <!-- Anime Data -->
   <div *ngIf="animeData.length > 0">
@@ -20,22 +20,22 @@
       <div *ngFor="let anime of animeData" class="bg-white shadow-lg rounded-lg overflow-hidden">
         <!-- Placeholder for anime image -->
         <img
-          [src]="anime.image || 'https://via.placeholder.com/300x200?text=No+Image'"
-          [alt]="anime.title"
+          [src]="anime.image_link || 'https://via.placeholder.com/300x200?text=No+Image'"
+          [alt]="anime.anime_name"
           class="w-full h-48 object-cover"
         />
         <div class="p-4">
           <h4 class="text-lg font-bold text-gray-900 truncate">
-            {{ anime.title }}
+            {{ anime.anime_name }}
           </h4>
           <p class="text-sm text-gray-500">
-            {{ anime.genres?.join(', ') || 'Genres not available' }}
+            {{ anime.category || 'Genres not available' }}
           </p>
           <p class="text-gray-700 mt-2 text-justify text-sm line-clamp-3">
-            {{ anime.synopsis || 'Synopsis not available' }}
+            {{ anime.description || 'Synopsis not available' }}
           </p>
           <a
-            [href]="anime.link"
+            [href]="anime.readMore_link"
             target="_blank"
             class="text-blue-500 text-sm mt-3 inline-block hover:underline"
             >Read More</a
