@@ -7,6 +7,21 @@ import appClient from '../services/axios.service';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
+
+
+
+
+  isLoggedIn: boolean = false;  // Initialize it
+
+
+
+
+
+
+
+
+
+
   animeData: any[] = [];
   loading: boolean = false;
   error: string | null = null;
@@ -19,6 +34,14 @@ export class HomeComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadAnimes();
+    this.checkAuthStatus();
+  }
+
+  checkAuthStatus() {
+    // Check if user is logged in (using token or cookies)
+    const token = document.cookie.includes('authToken'); // Check for authToken in cookies
+
+    this.isLoggedIn = token;  // Update isLoggedIn value
   }
 
   async loadAnimes() {

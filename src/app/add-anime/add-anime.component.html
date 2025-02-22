@@ -1,1 +1,82 @@
-<p>add-anime works!</p>
+<div class="bg-base-200 min-h-screen flex items-center justify-center" ng-app="animeApp" ng-controller="AnimeController">
+
+    <div class="hero bg-base-20gree min-h-screen flex items-center justify-center">
+        <div class="hero-content flex flex-col lg:flex-row-reverse">
+            <div class="text-center lg:text-left">
+                <div class="card bg-gray-800 w-[60vw] h-[85vh] shadow-2xl p-6 rounded-lg">
+                    <form #animeForm="ngForm" (ngSubmit)="addAnime(animeForm)">
+                        <div class="form-control mt-4">
+                            <label class="label ">
+                                <span class="text-white label-text">Anime name</span>
+                            </label>
+                            <input type="text" name="anime_name" placeholder="Enter anime name" 
+                                   class="px-4 py-1 rounded-md input input-bordered w-full" 
+                                   [(ngModel)]="anime.anime_name" required #animeName="ngModel"/>
+                            <div *ngIf="animeName.invalid && animeName.touched" class="text-red-500">
+                                Anime name is required!
+                            </div>
+                        </div>
+                    
+                        <div class="form-control mt-4">
+                            <label class="label ">
+                                <span class="text-white label-text">Upload an image</span>
+                            </label>
+                            <input type="text" name="image_link" placeholder="Upload an image" 
+                                   class="px-4 py-1 rounded-md input input-bordered w-full" 
+                                   [(ngModel)]="anime.image_link" required #imageLink="ngModel"/>
+                            <div *ngIf="imageLink.invalid && imageLink.touched" class="text-red-500">
+                                Image link is required!
+                            </div>
+                        </div>
+                    
+                        <div class="form-control mt-4">
+                            <label class="label ">
+                                <span class="text-white label-text">Category</span>
+                            </label>
+                            <input type="text" name="category" placeholder="Category" 
+                                   class="px-4 py-1 rounded-md input input-bordered w-full" 
+                                   [(ngModel)]="anime.category" required #category="ngModel"/>
+                            <div *ngIf="category.invalid && category.touched" class="text-red-500">
+                                Category is required!
+                            </div>
+                        </div>
+                    
+                        <div class="form-control mt-4">
+                            <label class="label ">
+                                <span class="text-white label-text">Description</span>
+                            </label>
+                            <input type="text" name="description" placeholder="Description" 
+                                   class="px-4 py-1 rounded-md input input-bordered w-full" 
+                                   [(ngModel)]="anime.description" required #description="ngModel"/>
+                            <div *ngIf="description.invalid && description.touched" class="text-red-500">
+                                Description is required!
+                            </div>
+                        </div>
+                    
+                        <div class="form-control mt-4">
+                            <label class="label ">
+                                <span class="text-white label-text">Read more link</span>
+                            </label>
+                            <input type="text" name="readMore_link" placeholder="Read more link" 
+                                   class="px-4 py-1 rounded-md input input-bordered w-full" 
+                                   [(ngModel)]="anime.readMore_link" required #readMoreLink="ngModel"/>
+                            <div *ngIf="readMoreLink.invalid && readMoreLink.touched" class="text-red-500">
+                                Read more link is required!
+                            </div>
+                        </div>
+                    
+                        <!-- Disable button until form is valid -->
+                        <div class="form-control mt-6">
+                            <button class="btn btn-primary bg-green-600 text-white w-full h-[5vw] rounded-lg" 
+                                    [disabled]="animeForm.invalid">
+                                ADD
+                            </button>
+                        </div>
+                    </form>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

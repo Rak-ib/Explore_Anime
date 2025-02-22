@@ -19,11 +19,8 @@
       <!-- Anime Card -->
       <div *ngFor="let anime of animeData" class="bg-white shadow-lg rounded-lg overflow-hidden">
         <!-- Placeholder for anime image -->
-        <img
-          [src]="anime.image_link || 'https://via.placeholder.com/300x200?text=No+Image'"
-          [alt]="anime.anime_name"
-          class="w-full h-48 object-cover"
-        />
+        <img [src]="anime.image_link || 'https://via.placeholder.com/300x200?text=No+Image'" [alt]="anime.anime_name"
+          class="w-full h-48 object-cover" />
         <div class="p-4">
           <h4 class="text-lg font-bold text-gray-900 truncate">
             {{ anime.anime_name }}
@@ -34,12 +31,13 @@
           <p class="text-gray-700 mt-2 text-justify text-sm line-clamp-3">
             {{ anime.description || 'Synopsis not available' }}
           </p>
-          <a
-            [href]="anime.readMore_link"
-            target="_blank"
-            class="text-blue-500 text-sm mt-3 inline-block hover:underline"
-            >Read More</a
-          >
+          <a *ngIf="isLoggedIn" [href]="anime.readMore_link" target="_blank"
+            class="text-blue-500 text-sm mt-3 inline-block hover:underline">Read More</a>
+
+          <p *ngIf="!isLoggedIn" class="text-gray-500 text-sm mt-3 inline-block">
+            Login to read more
+          </p>
+
         </div>
       </div>
     </div>

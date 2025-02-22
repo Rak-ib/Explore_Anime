@@ -1,58 +1,31 @@
 <nav class="bg-black text-white px-6 py-4 flex justify-between items-center shadow-lg">
-    <!-- Left Section -->
-    <div class="text-2xl font-bold text-white">LoGo</div>
+  <div class="text-2xl font-bold text-white">LoGo</div>
 
+  <div class="flex items-center space-x-6">
+    <a routerLink="/" class="text-lg font-semibold hover:text-gray-300 cursor-pointer">Home</a>
+    <a *ngIf="isLoggedIn$ | async" routerLink="/addAnime" class="text-lg font-semibold hover:text-gray-300 cursor-pointer">Add Anime</a>
+    <a class="text-lg font-semibold hover:text-gray-300 cursor-pointer">About</a>
+  </div>
 
-    <!-- Center -->
-    <div class="flex items-center space-x-6">
-        <a routerLink="/" class="text-lg font-semibold hover:text-gray-300 cursor-pointer">Home</a>
-        <a routerLink="addAnime" class="text-lg font-semibold hover:text-gray-300 cursor-pointer">Add Anime</a>
-        <a class="text-lg font-semibold hover:text-gray-300 cursor-pointer">About</a>
-      </div>
-  
-    <!-- Right Section -->
-    <div class="flex items-center space-x-4">
-      <!-- Buttons for Login and Register -->
-      <button
-        *ngIf="!isLoggedIn"
-        class="px-4 py-2 bg-blue-600 hover:bg-blue-700 rounded-md"
-        (click)="navigate('register')"
-      >
-        Register
+  <div class="flex items-center space-x-4">
+    <!-- Show Register and Login buttons when not logged in -->
+    <button *ngIf="!(isLoggedIn$ | async)" class="px-4 py-2 bg-blue-600 hover:bg-blue-700 rounded-md" (click)="navigate('register')">
+      Register
+    </button>
+    <button *ngIf="!(isLoggedIn$ | async)" class="px-4 py-2 bg-green-600 hover:bg-green-700 rounded-md" (click)="navigate('login')">
+      Login
+    </button>
+
+    <!-- Show Username and Logout buttons when logged in -->
+    <div *ngIf="(isLoggedIn$ | async) && (username$ | async)" class="relative group">
+      <button class="px-4 py-2 bg-gray-700 hover:bg-gray-800 rounded-md">
+        {{ username$ | async }}
       </button>
-      <button
-        *ngIf="!isLoggedIn"
-        class="px-4 py-2 bg-green-600 hover:bg-green-700 rounded-md"
-        (click)="navigate('login')"
-      >
-        Login
-      </button>
-  
-      <!-- Button showing username -->
-      <div *ngIf="isLoggedIn" class="relative group">
-        <button
-          class="px-4 py-2 bg-gray-700 hover:bg-gray-800 rounded-md"
-          (click)="toggleLogoutDropdown()"
-        >
-          {{ username }}
+      <div class="absolute top-12 right-0 w-32 bg-gray-700 rounded-md shadow-md z-50">
+        <button class="w-full px-4 py-2 text-left hover:bg-red-600 rounded-md" (click)="logout()">
+          Logout
         </button>
-        <!-- Logout Dropdown -->
-        <div
-          *ngIf="showLogoutDropdown"
-          class="absolute top-12 right-0 w-32 bg-gray-700 rounded-md shadow-md z-50"
-        >
-          <button
-            class="w-full px-4 py-2 text-left hover:bg-red-600 rounded-md"
-            (click)="logout()"
-          >
-            Logout
-          </button>
-        </div>
       </div>
     </div>
-  </nav>
-  
-
-
-
- 
+  </div>
+</nav>

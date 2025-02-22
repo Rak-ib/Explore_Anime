@@ -1,31 +1,29 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
-  styleUrl: './navbar.component.css'
+  styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent {
-  isLoggedIn: boolean = false; // Replace with actual login state
-  username: string = 'User123'; // Replace with actual logged-in username
-  showLogoutDropdown: boolean = false;
+  constructor(private authService: AuthService, private router: Router) {}
 
-  constructor(private router: Router) {}
-
-  navigate(route: string): void {
-    this.router.navigate([route]); // Navigate to the respective route
+  // Directly bind to the observables
+  get username$() {
+    return this.authService.username$;
   }
 
-  toggleLogoutDropdown(): void {
-    this.showLogoutDropdown = !this.showLogoutDropdown;
+  get isLoggedIn$() {
+    return this.authService.isLoggedIn$;
+  }
+
+  navigate(route: string): void {
+    this.router.navigate([route]);
   }
 
   logout(): void {
-    // Handle logout logic here
-    this.isLoggedIn = false;
-    this.showLogoutDropdown = false;
-    // Redirect or reset state
-    this.router.navigate(['/login']);
+    this.authService.logout();
   }
 }

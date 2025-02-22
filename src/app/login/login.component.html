@@ -1,1 +1,35 @@
-<p>login works!</p>
+<div class="bg-base-200 min-h-screen flex items-center justify-center">
+    <div class="hero bg-base-200 min-h-screen flex items-center justify-center">
+        <div class="hero-content flex flex-col lg:flex-row-reverse">
+            <div class="text-center lg:text-left">
+                <div class="card bg-gray-800 w-[60vw] h-[85vh] shadow-2xl p-6 rounded-lg">
+                    <form class="card-body" #loginForm="ngForm" (ngSubmit)="login(loginForm)">
+                        <div class="form-control mt-4">
+                            <label class="label">
+                                <span class="text-white label-text">Name or Email</span>
+                            </label>
+                            <input type="text" name="identifier" placeholder="Enter user name or email"
+                                class="px-4 py-1 rounded-md input input-bordered w-full"
+                                [(ngModel)]="user.identifier" required />
+                        </div>
+                        <div class="form-control mt-4">
+                            <label class="label">
+                                <span class="text-white label-text">Password</span>
+                            </label>
+                            <input type="password" name="password" placeholder="Enter Password"
+                                class="px-4 py-1 rounded-md input input-bordered w-full"
+                                [(ngModel)]="user.user_password" required />
+                        </div>
+                        
+                        <div class="form-control mt-6">
+                            <button type="submit"
+                                class="btn btn-primary bg-green-600 text-white w-full h-[5vw] rounded-lg">
+                                Login
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
