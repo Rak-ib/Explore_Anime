@@ -7,7 +7,7 @@ import { Router } from '@angular/router';
   providedIn: 'root',
 })
 export class AuthService {
-  private authUrl = 'https://exploreanimebackend.vercel.app/auth';
+  private authUrl = 'https://explore-anime-backend-tatd.vercel.app/auth';
   private isLoggedInSubject = new BehaviorSubject<boolean>(false);
   private usernameSubject = new BehaviorSubject<string | null>(null);
   // https://exploreanimebackend.vercel.app/auth
