@@ -10,7 +10,7 @@ export class AuthService {
   private authUrl = 'https://exploreanimebackend.vercel.app/auth';
   private isLoggedInSubject = new BehaviorSubject<boolean>(false);
   private usernameSubject = new BehaviorSubject<string | null>(null);
-
+  // https://exploreanimebackend.vercel.app/auth
   isLoggedIn$ = this.isLoggedInSubject.asObservable();
   username$ = this.usernameSubject.asObservable();
 
@@ -20,6 +20,8 @@ export class AuthService {
 
   checkAuthStatus() {
     const token = localStorage.getItem('authToken');
+    console.log("did the vercel came in the auth service checkAuthStatus");
+    console.log("then did it have",token);
     if (token) {
       this.http.get<{ username: string }>(`${this.authUrl}/check-auth`, { withCredentials: true }).subscribe({
         next: (response) => {
@@ -37,21 +39,36 @@ export class AuthService {
     }
   }
 
+  // login(user: any): Observable<any> {
+  //   return this.http.post<{ username: string, token: string }>(`${this.authUrl}/login`, user, { withCredentials: true }).pipe(
+  //     tap((response) => {
+  //       console.log("from auth service.ts",response)
+  //       // Store the login state and username after successful login
+  //       this.isLoggedInSubject.next(true);
+  //       this.usernameSubject.next(response.username);
+
+  //       // Optionally store token for persistence
+  //       localStorage.setItem('authToken', response.token);
+  //       this.router.navigate(['/']);
+  //     })
+  //   );
+  // }
+
   login(user: any): Observable<any> {
-    return this.http.post<{ username: string, token: string }>(`${this.authUrl}/login`, user, { withCredentials: true }).pipe(
+    return this.http.post<{ username: string }>(`${this.authUrl}/login`, user, { withCredentials: true }).pipe(
       tap((response) => {
-        console.log("from auth service.ts",response)
-        // Store the login state and username after successful login
+        console.log("from auth service.ts", response);
+  
+        // Store login state and username
         this.isLoggedInSubject.next(true);
         this.usernameSubject.next(response.username);
-
-        // Optionally store token for persistence
-        localStorage.setItem('authToken', response.token);
+  
+        // ✅ Remove storing the token manually!
         this.router.navigate(['/']);
       })
     );
   }
-
+  
   logout() {
     this.http.post(`${this.authUrl}/logout`, {}, { withCredentials: true }).subscribe(() => {
       this.isLoggedInSubject.next(false);
