@@ -39,35 +39,35 @@ export class AuthService {
     }
   }
 
-  // login(user: any): Observable<any> {
-  //   return this.http.post<{ username: string, token: string }>(`${this.authUrl}/login`, user, { withCredentials: true }).pipe(
-  //     tap((response) => {
-  //       console.log("from auth service.ts",response)
-  //       // Store the login state and username after successful login
-  //       this.isLoggedInSubject.next(true);
-  //       this.usernameSubject.next(response.username);
-
-  //       // Optionally store token for persistence
-  //       localStorage.setItem('authToken', response.token);
-  //       this.router.navigate(['/']);
-  //     })
-  //   );
-  // }
-
   login(user: any): Observable<any> {
-    return this.http.post<{ username: string }>(`${this.authUrl}/login`, user, { withCredentials: true }).pipe(
+    return this.http.post<{ username: string, token: string }>(`${this.authUrl}/login`, user, { withCredentials: true }).pipe(
       tap((response) => {
-        console.log("from auth service.ts", response);
-  
-        // Store login state and username
+        console.log("from auth service.ts",response)
+        // Store the login state and username after successful login
         this.isLoggedInSubject.next(true);
         this.usernameSubject.next(response.username);
-  
-        // ✅ Remove storing the token manually!
+
+        // Optionally store token for persistence
+        localStorage.setItem('authToken', response.token);
         this.router.navigate(['/']);
       })
     );
   }
+
+  // login(user: any): Observable<any> {
+  //   return this.http.post<{ username: string }>(`${this.authUrl}/login`, user, { withCredentials: true }).pipe(
+  //     tap((response) => {
+  //       console.log("from auth service.ts", response);
+  
+  //       // Store login state and username
+  //       this.isLoggedInSubject.next(true);
+  //       this.usernameSubject.next(response.username);
+  
+  //       // ✅ Remove storing the token manually!
+  //       this.router.navigate(['/']);
+  //     })
+  //   );
+  // }
   
   logout() {
     this.http.post(`${this.authUrl}/logout`, {}, { withCredentials: true }).subscribe(() => {
