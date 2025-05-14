@@ -24,6 +24,7 @@ export class NavbarComponent {
   }
 
   logout(): void {
+    console.log("hey i am from logout")
     this.authService.logout();
   }
 }

@@ -7,24 +7,12 @@ import appClient from '../services/axios.service';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
-
-
-
-
-  isLoggedIn: boolean = false;  // Initialize it
-
-
-
-
-
-
-
-
-
-
+  isLoggedIn: boolean = false;
   animeData: any[] = [];
   loading: boolean = false;
   error: string | null = null;
+  popularAnime: any[] = [];
+  trendingAnime: any[] = [];
 
   formData = {
     anime_name: '',
@@ -35,13 +23,13 @@ export class HomeComponent implements OnInit {
   ngOnInit(): void {
     this.loadAnimes();
     this.checkAuthStatus();
+    this.loadPopularAnime();
+    this.loadTrendingAnime();
   }
 
   checkAuthStatus() {
-    // Check if user is logged in (using token or cookies)
-    const token = document.cookie.includes('authToken'); // Check for authToken in cookies
-
-    this.isLoggedIn = token;  // Update isLoggedIn value
+    const token = document.cookie.includes('authToken');
+    this.isLoggedIn = token;
   }
 
   async loadAnimes() {
@@ -49,20 +37,37 @@ export class HomeComponent implements OnInit {
     this.error = null;
 
     try {
-      const response = await appClient.get('', {
+      const response = await appClient.get('/', {
         params: {
-          anime_name: this.formData.anime_name,
-          category: this.formData.category,
+          title: this.formData.anime_name,
+          genre: this.formData.category,
           page: this.formData.page
         }
       });
       this.animeData = response.data.data;
-      console.log('Fetched data:', this.animeData);
     } catch (error) {
       console.error('Error loading data:', error);
       this.error = 'Error fetching data';
     } finally {
       this.loading = false;
+    }
+  }
+
+  async loadPopularAnime() {
+    try {
+      const response = await appClient.get('/anime/popular');
+      this.popularAnime = response.data.data.slice(0, 8);
+    } catch (error) {
+      console.error('Error loading popular anime:', error);
+    }
+  }
+
+  async loadTrendingAnime() {
+    try {
+      const response = await appClient.get('/anime/trending');
+      this.trendingAnime = response.data.data.slice(0, 8);
+    } catch (error) {
+      console.error('Error loading trending anime:', error);
     }
   }
 

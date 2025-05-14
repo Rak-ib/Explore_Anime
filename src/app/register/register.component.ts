@@ -1,41 +1,44 @@
 import { Component } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
-  styleUrl: './register.component.css'
+  styleUrls: ['./register.component.css']
 })
 export class RegisterComponent {
-  // Define the anime object to hold form data
   newUser = {
-    user_name:'',
-    user_email:'',
-    user_password:''
+    userName: '',
+    email: '',
+    password: ''
   };
 
-  // Function to send a POST request
-  login(form:any) {
+  constructor(
+    private http: HttpClient,
+    private router: Router
+  ) {}
+
+  signup(form: any) {
     if (form.invalid) {
-      alert("Please fill all required fields before submitting.");
+      alert("Please fill all required fields.");
       return;
     }
-    console.log(this.newUser, "Sending data...");
 
-    // axios.post('https://your-api-endpoint.com/anime', this.user)
-    //   .then(response => {
-    //     alert('Anime added successfully!');
-    //     console.log(response.data);
+    const apiUrl = 'http://localhost:3000/auth/signup';
 
-    //     // Reset the form after submission
-    //     this.user = {
-    //       identifier: '',
-    //       password: ''
-    //     };
-    //   })
-    //   .catch(error => {
-    //     alert('Error adding anime');
-    //     console.error(error);
-    //   });
-    form.reset()
+    this.http.post(apiUrl, this.newUser, { 
+      withCredentials: true // Critical for cookies
+    }).subscribe({
+      next: (response: any) => {
+        alert('Registration successful!');
+        this.router.navigate(['/']); // Redirect to home/dashboard
+        form.reset();
+      },
+      error: (error) => {
+        alert(`Error: ${error.error?.message || 'Registration failed'}`);
+        console.error(error);
+      }
+    });
   }
 }

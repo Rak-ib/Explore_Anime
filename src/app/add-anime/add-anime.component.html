@@ -1,82 +1,208 @@
-<div class="bg-base-200 min-h-screen flex items-center justify-center" ng-app="animeApp" ng-controller="AnimeController">
+<div class="min-h-screen flex items-center justify-center bg-gray-900 text-white">
+    <div class="bg-gray-800 p-8 rounded-lg shadow-md w-[80vw]">
+        <h2 class="text-2xl font-semibold mb-6 text-center">Add New Anime</h2>
+        <form #animeForm="ngForm" (ngSubmit)="addAnime(animeForm)">
+            <!-- Basic Information -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+                <!-- Title -->
+                <div class="mb-4">
+                    <label class="block mb-1">Title*</label>
+                    <input type="text" name="title" [(ngModel)]="anime.title" 
+                           class="w-full p-2 rounded bg-gray-700 border border-gray-600" required />
+                </div>
 
-    <div class="hero bg-base-20gree min-h-screen flex items-center justify-center">
-        <div class="hero-content flex flex-col lg:flex-row-reverse">
-            <div class="text-center lg:text-left">
-                <div class="card bg-gray-800 w-[60vw] h-[85vh] shadow-2xl p-6 rounded-lg">
-                    <form #animeForm="ngForm" (ngSubmit)="addAnime(animeForm)">
-                        <div class="form-control mt-4">
-                            <label class="label ">
-                                <span class="text-white label-text">Anime name</span>
-                            </label>
-                            <input type="text" name="anime_name" placeholder="Enter anime name" 
-                                   class="px-4 py-1 rounded-md input input-bordered w-full" 
-                                   [(ngModel)]="anime.anime_name" required #animeName="ngModel"/>
-                            <div *ngIf="animeName.invalid && animeName.touched" class="text-red-500">
-                                Anime name is required!
-                            </div>
-                        </div>
-                    
-                        <div class="form-control mt-4">
-                            <label class="label ">
-                                <span class="text-white label-text">Upload an image</span>
-                            </label>
-                            <input type="text" name="image_link" placeholder="Upload an image" 
-                                   class="px-4 py-1 rounded-md input input-bordered w-full" 
-                                   [(ngModel)]="anime.image_link" required #imageLink="ngModel"/>
-                            <div *ngIf="imageLink.invalid && imageLink.touched" class="text-red-500">
-                                Image link is required!
-                            </div>
-                        </div>
-                    
-                        <div class="form-control mt-4">
-                            <label class="label ">
-                                <span class="text-white label-text">Category</span>
-                            </label>
-                            <input type="text" name="category" placeholder="Category" 
-                                   class="px-4 py-1 rounded-md input input-bordered w-full" 
-                                   [(ngModel)]="anime.category" required #category="ngModel"/>
-                            <div *ngIf="category.invalid && category.touched" class="text-red-500">
-                                Category is required!
-                            </div>
-                        </div>
-                    
-                        <div class="form-control mt-4">
-                            <label class="label ">
-                                <span class="text-white label-text">Description</span>
-                            </label>
-                            <input type="text" name="description" placeholder="Description" 
-                                   class="px-4 py-1 rounded-md input input-bordered w-full" 
-                                   [(ngModel)]="anime.description" required #description="ngModel"/>
-                            <div *ngIf="description.invalid && description.touched" class="text-red-500">
-                                Description is required!
-                            </div>
-                        </div>
-                    
-                        <div class="form-control mt-4">
-                            <label class="label ">
-                                <span class="text-white label-text">Read more link</span>
-                            </label>
-                            <input type="text" name="readMore_link" placeholder="Read more link" 
-                                   class="px-4 py-1 rounded-md input input-bordered w-full" 
-                                   [(ngModel)]="anime.readMore_link" required #readMoreLink="ngModel"/>
-                            <div *ngIf="readMoreLink.invalid && readMoreLink.touched" class="text-red-500">
-                                Read more link is required!
-                            </div>
-                        </div>
-                    
-                        <!-- Disable button until form is valid -->
-                        <div class="form-control mt-6">
-                            <button class="btn btn-primary bg-green-600 text-white w-full h-[5vw] rounded-lg" 
-                                    [disabled]="animeForm.invalid">
-                                ADD
-                            </button>
-                        </div>
-                    </form>
-                    
+                <!-- Japanese Title -->
+                <div class="mb-4">
+                    <label class="block mb-1">Japanese Title</label>
+                    <input type="text" name="japanese_title" [(ngModel)]="anime.japanese_title" 
+                           class="w-full p-2 rounded bg-gray-700 border border-gray-600" />
+                </div>
+
+                <!-- Synopsis -->
+                <div class="mb-4 col-span-2">
+                    <label class="block mb-1">Synopsis*</label>
+                    <textarea name="synopsis" [(ngModel)]="anime.synopsis"
+                              class="w-full p-2 rounded bg-gray-700 border border-gray-600" required></textarea>
+                </div>
+
+                <!-- Genres -->
+                <div class="mb-4">
+                    <label class="block mb-1">Genres (comma separated)*</label>
+                    <input type="text" name="genres" [(ngModel)]="genresInput"
+                           class="w-full p-2 rounded bg-gray-700 border border-gray-600" />
+                </div>
+
+                <!-- Status -->
+                <div class="mb-4">
+                    <label class="block mb-1">Status</label>
+                    <select name="status" [(ngModel)]="anime.status" 
+                            class="w-full p-2 rounded bg-gray-700 border border-gray-600">
+                        <option value="Ongoing">Ongoing</option>
+                        <option value="Completed">Completed</option>
+                        <option value="Upcoming">Upcoming</option>
+                    </select>
+                </div>
+
+                <!-- Release Date -->
+                <div class="mb-4">
+                    <label class="block mb-1">Release Date</label>
+                    <input type="text" name="release_date" [(ngModel)]="anime.release_date"
+                           class="w-full p-2 rounded bg-gray-700 border border-gray-600" />
+                </div>
+
+                <!-- Episodes Count -->
+                <div class="mb-4">
+                    <label class="block mb-1">Episodes</label>
+                    <input type="number" name="episodes" [(ngModel)]="anime.episodes"
+                           class="w-full p-2 rounded bg-gray-700 border border-gray-600" />
+                </div>
+
+                <!-- Duration -->
+                <div class="mb-4">
+                    <label class="block mb-1">Duration per Episode</label>
+                    <input type="text" name="duration_per_episode" [(ngModel)]="anime.duration_per_episode"
+                           class="w-full p-2 rounded bg-gray-700 border border-gray-600" />
+                </div>
+
+                <!-- Rating -->
+                <div class="mb-4">
+                    <label class="block mb-1">Rating</label>
+                    <input type="text" name="rating" [(ngModel)]="anime.rating"
+                           class="w-full p-2 rounded bg-gray-700 border border-gray-600" />
+                </div>
+
+                <!-- Studio -->
+                <div class="mb-4">
+                    <label class="block mb-1">Studio</label>
+                    <input type="text" name="studio" [(ngModel)]="anime.studio"
+                           class="w-full p-2 rounded bg-gray-700 border border-gray-600" />
+                </div>
+
+                <!-- Producers -->
+                <div class="mb-4">
+                    <label class="block mb-1">Producers (comma separated)</label>
+                    <input type="text" name="producer" [(ngModel)]="producersInput"
+                           class="w-full p-2 rounded bg-gray-700 border border-gray-600" />
+                </div>
+
+                <!-- Score -->
+                <div class="mb-4">
+                    <label class="block mb-1">Score</label>
+                    <input type="number" step="0.1" name="score" [(ngModel)]="anime.score"
+                           class="w-full p-2 rounded bg-gray-700 border border-gray-600" />
+                </div>
+
+                <!-- Popularity Rank -->
+                <div class="mb-4">
+                    <label class="block mb-1">Popularity Rank</label>
+                    <input type="number" name="popularity_rank" [(ngModel)]="anime.popularity_rank"
+                           class="w-full p-2 rounded bg-gray-700 border border-gray-600" />
+                </div>
+
+                <!-- Cover Image -->
+                <div class="mb-4">
+                    <label class="block mb-1">Cover Image URL</label>
+                    <input type="text" name="cover_image" [(ngModel)]="anime.cover_image"
+                           class="w-full p-2 rounded bg-gray-700 border border-gray-600" />
+                </div>
+
+                <!-- Trailer URL -->
+                <div class="mb-4">
+                    <label class="block mb-1">Trailer URL</label>
+                    <input type="text" name="trailer_url" [(ngModel)]="anime.trailer_url"
+                           class="w-full p-2 rounded bg-gray-700 border border-gray-600" />
                 </div>
             </div>
-        </div>
-    </div>
 
+            <!-- Streaming Links -->
+            <div class="mb-6">
+                <h3 class="text-lg font-semibold mb-4">Streaming Links</h3>
+                <div class="flex gap-4 mb-2">
+                    <input type="text" name="quality" placeholder="Quality" [(ngModel)]="streamingLink.quality"
+                           class="p-2 w-1/3 rounded bg-gray-700 border border-gray-600" />
+                    <input type="text" name="streamingUrl" placeholder="URL" [(ngModel)]="streamingLink.url"
+                           class="p-2 w-2/3 rounded bg-gray-700 border border-gray-600" />
+                    <button type="button" (click)="addStreamingLink()"
+                            class="px-4 py-2 bg-blue-600 rounded">Add</button>
+                </div>
+                <ul>
+                    <li *ngFor="let link of anime.streaming_links" class="text-sm text-gray-400 mb-1">
+                        {{ link.quality }} - <a [href]="link.url" target="_blank" class="text-blue-400">{{ link.url }}</a>
+                        <button type="button" (click)="removeStreamingLink(link)" class="ml-2 text-red-400">×</button>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Episodes List -->
+            <div class="mb-6">
+                <h3 class="text-lg font-semibold mb-4">Episodes List</h3>
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-2">
+                    <input type="number" name="episode_number" placeholder="Episode #" [(ngModel)]="episode.episode_number"
+                           class="p-2 rounded bg-gray-700 border border-gray-600" />
+                    <input type="text" name="episode_title" placeholder="Title" [(ngModel)]="episode.title"
+                           class="p-2 rounded bg-gray-700 border border-gray-600" />
+                    <input type="text" name="episode_video_url" placeholder="Video URL" [(ngModel)]="episode.video_url"
+                           class="p-2 rounded bg-gray-700 border border-gray-600" />
+                    <button type="button" (click)="addEpisode()"
+                            class="px-4 py-2 bg-green-600 rounded">Add</button>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-2">
+                    <input type="text" name="episode_aired_date" placeholder="Aired Date" [(ngModel)]="episode.aired_date"
+                           class="p-2 rounded bg-gray-700 border border-gray-600" />
+                    <input type="text" name="episode_thumbnail" placeholder="Thumbnail URL" [(ngModel)]="episode.thumbnail"
+                           class="p-2 rounded bg-gray-700 border border-gray-600" />
+                </div>
+                <ul class="mt-4">
+                    <li *ngFor="let ep of anime.episodes_list" class="text-sm text-gray-400 mb-2 p-2 bg-gray-700 rounded">
+                        <div>Episode {{ ep.episode_number }}: {{ ep.title }}</div>
+                        <div class="text-xs">Aired: {{ ep.aired_date }}</div>
+                        <div class="text-blue-400 text-xs truncate">{{ ep.video_url }}</div>
+                        <button type="button" (click)="removeEpisode(ep)" class="mt-1 text-red-400 text-xs">Remove</button>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Characters -->
+            <div class="mb-6">
+                <h3 class="text-lg font-semibold mb-4">Characters</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-2">
+                    <input type="text" name="character_name" placeholder="Name" [(ngModel)]="character.name"
+                           class="p-2 rounded bg-gray-700 border border-gray-600" />
+                    <input type="text" name="character_role" placeholder="Role" [(ngModel)]="character.role"
+                           class="p-2 rounded bg-gray-700 border border-gray-600" />
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-2">
+                    <input type="text" name="voice_actor_name" placeholder="Voice Actor Name" [(ngModel)]="character.voice_actor.name"
+                           class="p-2 rounded bg-gray-700 border border-gray-600" />
+                    <input type="text" name="voice_actor_language" placeholder="Language" [(ngModel)]="character.voice_actor.language"
+                           class="p-2 rounded bg-gray-700 border border-gray-600" />
+                </div>
+                <div class="mb-2">
+                    <input type="text" name="character_image" placeholder="Image URL" [(ngModel)]="character.image"
+                           class="p-2 w-full rounded bg-gray-700 border border-gray-600" />
+                </div>
+                <button type="button" (click)="addCharacter()"
+                        class="px-4 py-2 bg-purple-600 rounded mb-4">Add Character</button>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div *ngFor="let char of anime.characters" class="bg-gray-700 p-3 rounded">
+                        <div class="font-medium">{{ char.name }}</div>
+                        <div class="text-sm text-gray-400">{{ char.role }}</div>
+                        <div class="text-xs mt-1">Voiced by: {{ char.voice_actor.name }} ({{ char.voice_actor.language }})</div>
+                        <button type="button" (click)="removeCharacter(char)" class="mt-1 text-red-400 text-xs">Remove</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Related Anime -->
+            <div class="mb-6">
+                <h3 class="text-lg font-semibold mb-4">Related Anime IDs (comma separated)</h3>
+                <input type="text" name="related_anime" [(ngModel)]="relatedAnimeInput"
+                       class="w-full p-2 rounded bg-gray-700 border border-gray-600" />
+            </div>
+
+            <!-- Submit Button -->
+            <button type="submit" class="w-full py-3 bg-green-600 rounded text-white font-semibold"
+                    [disabled]="animeForm.invalid">Add Anime</button>
+        </form>
+    </div>
 </div>

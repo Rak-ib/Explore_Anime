@@ -5,7 +5,11 @@ module.exports = {
     "./src/**/*.{html,ts}", // Include all Angular templates and components
   ],
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        navy: '#001F3F',
+      },
+    },
   },
   plugins: [],
 };

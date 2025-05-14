@@ -1,0 +1,33 @@
+<div class="bg-white shadow-lg rounded-lg overflow-hidden hover:shadow-xl transition-shadow duration-300 h-full flex flex-col">
+    <div class="relative">
+      <img 
+        [src]="anime.cover_image || 'assets/default-anime.jpg'" 
+        [alt]="anime.title"
+        class="w-full h-48 object-cover"
+        (error)="anime.cover_image = 'assets/default-anime.jpg'"
+      />
+      <div *ngIf="anime.status" class="absolute top-2 right-2 bg-blue-500 text-white text-xs px-2 py-1 rounded">
+        {{ anime.status }}
+      </div>
+    </div>
+    <div class="p-4 flex flex-col flex-grow">
+      <h4 class="text-lg font-bold text-gray-900 truncate">
+        {{ anime.title }}
+      </h4>
+      <div class="flex flex-wrap gap-1 mt-1 mb-2">
+        <span *ngFor="let genre of anime.genres.slice(0, 3)" 
+              class="text-xs bg-gray-200 px-2 py-1 rounded">
+          {{ genre }}
+        </span>
+      </div>
+      <p class="text-gray-700 text-sm line-clamp-3 flex-grow">
+        {{ anime.synopsis || 'Synopsis not available' }}
+      </p>
+      <button 
+        (click)="viewDetails()"
+        class="mt-4 bg-blue-600 hover:bg-blue-700 text-white w-full px-4 py-2 rounded transition-colors duration-300"
+      >
+        View Details
+      </button>
+    </div>
+  </div>

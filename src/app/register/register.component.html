@@ -3,14 +3,14 @@
         <div class="hero-content flex flex-col lg:flex-row-reverse">
             <div class="text-center lg:text-left">
                 <div class="card bg-gray-800 w-[60vw] h-[85vh] shadow-2xl p-6 rounded-lg">
-                    <form class="card-body" #registerForm="ngForm" (ngSubmit)="login(registerForm)">
+                    <form class="card-body" #registerForm="ngForm" (ngSubmit)="signup(registerForm)">
                         <div class="form-control mt-4">
                             <label class="label">
                                 <span class="text-white label-text">User Name </span>
                             </label>
                             <input type="text" name="user_name" placeholder="Enter user name "
                                 class="px-4 py-1 rounded-md input input-bordered w-full"
-                                [(ngModel)]="newUser.user_name" required />
+                                [(ngModel)]="newUser.userName" required />
                         </div>
                         <div class="form-control mt-4">
                             <label class="label">
@@ -18,7 +18,7 @@
                             </label>
                             <input type="email" name="user_email" placeholder="Enter your email"
                                 class="px-4 py-1 rounded-md input input-bordered w-full"
-                                [(ngModel)]="newUser.user_email" required />
+                                [(ngModel)]="newUser.email" required />
                         </div>
                         <div class="form-control mt-4">
                             <label class="label">
@@ -26,7 +26,7 @@
                             </label>
                             <input type="password" name="password" placeholder="Enter new Password"
                                 class="px-4 py-1 rounded-md input input-bordered w-full"
-                                [(ngModel)]="newUser.user_password" required />
+                                [(ngModel)]="newUser.password" required />
                         </div>
                         
                         <div class="form-control mt-6">

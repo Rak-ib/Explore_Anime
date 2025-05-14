@@ -11,6 +11,10 @@ import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { AddAnimeComponent } from './add-anime/add-anime.component';
 import { HttpClientModule } from '@angular/common/http';
+// import { AnimeDetailComponent } from '../app/home/anime-detail-component/anime-detail-component.component';
+import { AnimeCardComponent } from './anime-card/anime-card.component';
+import { CommonModule } from '@angular/common';
+import { AnimeDetailComponent } from './anime-detail/anime-detail.component';
 
 @NgModule({
   declarations: [
@@ -20,13 +24,16 @@ import { HttpClientModule } from '@angular/common/http';
     NavbarComponent,
     LoginComponent,
     RegisterComponent,
-    AddAnimeComponent
+    AddAnimeComponent,
+    AnimeDetailComponent,
+    AnimeCardComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    CommonModule
   ],
   providers: [],
   bootstrap: [AppComponent]
